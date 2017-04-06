@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,13 +16,17 @@ namespace core_react_webpack_boilerplate.Core
 
     internal class ItemsRepository : IItemsRepository
     {
-        private readonly ConcurrentDictionary<int, Item> _repository = new ConcurrentDictionary<int, Item>();
+        private readonly ConcurrentDictionary<int, Item> _repository = new ConcurrentDictionary<int, Item>
+        {
+            [1] = new Item(1, "Sample", "Description"),
+            [2] = new Item(2, "Sample2", "Description2")
+        };
+
         private readonly IGenerateIds _idsGenerator;
 
         public ItemsRepository(IGenerateIds idsGenerator)
         {
             _idsGenerator = idsGenerator;
-            InitializeSeed();
         }
 
         public void Add(string name, string description)
@@ -52,16 +55,6 @@ namespace core_react_webpack_boilerplate.Core
         {
             var newItem = new Item(id, name, description, isDone);
             _repository.AddOrUpdate(id, newItem, (key, existingItem) => newItem);
-        }
-
-        private void InitializeSeed()
-        {
-            if (!_repository.IsEmpty) return;
-
-            Add("My Task", "This is task description");
-            Add("My Task2", "This is task description");
-            Add("My Task3", "This is task description");
-            Add("My Task4", "This is task description");
         }
     }
 }
