@@ -28,22 +28,22 @@ namespace core_react_webpack_boilerplate.Controllers
             _repository.Delete(id);
         }
 
-        [HttpGet]
         [Route("api/items/{id:int}")]
+        [HttpGet]
         public Item GetSingle(int id)
         {
             return _repository.GetSingle(id);
         }
 
-        [HttpPut]
         [Route("api/items/{id:int}/update")]
+        [HttpPut]
         public void Update(int id, string name, string description, bool isDone)
         {
             _repository.Update(id, name, description, isDone);
         }
         
-        [HttpPost]
         [Route("api/items/add")]
+        [HttpPost]
         public void Add(string name, string description)
         {
             _repository.Add(name, description);
